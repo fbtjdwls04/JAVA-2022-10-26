@@ -1,18 +1,20 @@
 package com.kor.java.proj;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		ArrayList<게시판> arr = new ArrayList();
+		Date date = new Date();
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String command;
 		String title;
 		String text;
-
-		int num = 0;
+		int num = 1;
 		System.out.println("=== 프로그램 시작 ===");
 		while (true) {
 			System.out.print("명령어) ");
@@ -21,27 +23,67 @@ public class Main {
 			if (command.length() == 0) {
 				continue;
 			}
-			if (command.equals("exit")) {
+			if (command.equals("exit") || command.equals("ex")) {
 				break;
-			} else if (command.equals("article write")) {
+			} else if (command.equals("article write")) {	// 게시물 작성
 				System.out.print("제목 : ");
 				title = sc.nextLine();
 				System.out.print("내용 : ");
 				text = sc.nextLine();
-				System.out.printf("%d번 게시물이 작성 되었습니다.\n", num + 1);
-				num++;
-				게시판 저장 = new 게시판(num, title, text);
+				System.out.printf("%d번 게시물이 작성 되었습니다.\n", num);
+				게시판 저장 = new 게시판(num, title, text, date);
 				arr.add(저장);
-			} else if (command.equals("article list")) {
+				num++;
+			} else if (command.equals("article list")) {	// 게시물 리스트 (번호, 제목)
 				if (arr.size() == 0) {
 					System.out.println("게시물이 없습니다.");
-				} else {
-					for (int i = 0; i < arr.size(); i++) {
-						System.out.printf("===(%s) %s ===\n", arr.get(i).num, arr.get(i).title);
-						System.out.printf("%s\n", arr.get(i).text);
+				}
+				for (int i = arr.size() - 1; i >= 0; i--) {
+					System.out.printf("(%d) 제목 |%s\n",arr.get(i).num,arr.get(i).title);
+				}
+			}
+			else if(command.startsWith("article delete ")) {	 // 게시물 삭제
+				String[] s = command.split(" ");
+				int remove = Integer.parseInt(s[2]);
+				int fi = 0;
+				boolean found = false;
+				for(int i = 0; i < arr.size(); i++) {
+					if(arr.get(i).num == remove) {
+						found = true;
+						fi = i;
+						break;
 					}
 				}
-			} else {
+				if(found == true) {
+					arr.remove(fi);
+					System.out.printf("%d 번 게시물이 삭제되었습니다.\n",remove);
+				}
+				else {
+					System.out.printf("%d번 게시물은 존재하지 않습니다.\n",remove);
+				}
+			}
+			else if(command.startsWith("article detail ")) { 	// 게시물 디테일
+				String[] s = command.split(" ");
+				int detail = Integer.parseInt(s[2]);
+				int fi = 0;
+				boolean found = false;
+				for(int i = 0; i < arr.size(); i++) {
+					if(arr.get(i).num == detail) {
+						found = true;
+						fi = i;
+						break;
+					}
+				}
+				if(found == true) {
+					System.out.printf("(%d) | %s\n",arr.get(fi).num, dateformat.format(arr.get(fi).date));
+					System.out.printf("제목 | %s\n",arr.get(fi).title);
+					System.out.printf("내용 | %s\n",arr.get(fi).text);
+				}
+				else {
+					System.out.printf("%d번 게시물은 존재하지 않습니다.\n",detail);
+				}
+			}
+			else {
 				System.out.printf("%s(은)는 존재하지 않는 명령어 입니다.\n", command);
 			}
 
@@ -56,10 +98,11 @@ class 게시판 {
 	int num;
 	String title;
 	String text;
-
-	게시판(int num, String title, String text) {
+	Date date;
+	게시판(int num, String title, String text, Date date) {
 		this.num = num;
 		this.title = title;
 		this.text = text;
+		this.date = date;
 	}
 }
