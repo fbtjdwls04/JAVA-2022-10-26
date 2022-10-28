@@ -15,7 +15,7 @@ public class Main {
 		String title;
 		String text;
 		int num = 1;
-		System.out.println("=== 프로그램 시작 ===");
+		System.out.println("======== 프로그램 시작 ========");
 		while (true) {
 			System.out.print("명령어) ");
 			command = sc.nextLine();
@@ -23,7 +23,7 @@ public class Main {
 			if (command.length() == 0) {
 				continue;
 			}
-			if (command.equals("exit") || command.equals("ex")) {
+			if (command.equals("exit") || command.equals("ex")) {  // 프로그램 종료
 				break;
 			} else if (command.equals("article write")) {	// 게시물 작성
 				System.out.print("제목 : ");
@@ -83,13 +83,34 @@ public class Main {
 					System.out.printf("%d번 게시물은 존재하지 않습니다.\n",detail);
 				}
 			}
+			else if(command.equals("help")) {					// 명령어 도움말
+				System.out.println("====================================");
+				System.out.println("article write = 게시글 작성하기");
+				System.out.println("article detail (번호) = 게시글 디테일 확인");
+				System.out.println("article delete (번호) = 게시글 삭제하기");
+				System.out.println("article list = 게시글 목록 간소화 전체보기");
+				System.out.println("article number sort = 게시글 번호 정렬 (빈 번호 채우기)");
+				System.out.println("ex, exit = 프로그램 종료");
+				System.out.println("====================================");
+				
+			}
+			else if (command.equals("article number sort")) {	// 게시글 번호 정렬(빈 번호 채우기)
+				if(arr.size()==0) {
+					System.out.println("게시물이 존재하지 않습니다.");
+					continue;
+				}
+				for(int i= 0; i < arr.size(); i++) {
+					arr.get(i).num = i+1;
+				}
+				System.out.println("게시물이 정렬되었습니다.");
+			}
 			else {
 				System.out.printf("%s(은)는 존재하지 않는 명령어 입니다.\n", command);
 			}
 
 		}
 		sc.close();
-		System.out.println("=== 프로그램 종료 ===");
+		System.out.println("======== 프로그램 종료 ========");
 
 	}
 }
