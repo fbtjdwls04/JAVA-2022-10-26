@@ -25,64 +25,7 @@ public class Main {
 			}
 			if (command.equals("exit") || command.equals("ex")) {  // 프로그램 종료
 				break;
-			} else if (command.equals("article write")) {	// 게시물 작성
-				System.out.print("제목 : ");
-				title = sc.nextLine();
-				System.out.print("내용 : ");
-				text = sc.nextLine();
-				System.out.printf("%d번 게시물이 작성 되었습니다.\n", num);
-				게시판 저장 = new 게시판(num, title, text, date);
-				arr.add(저장);
-				num++;
-			} else if (command.equals("article list")) {	// 게시물 리스트 (번호, 제목)
-				if (arr.size() == 0) {
-					System.out.println("게시물이 없습니다.");
-				}
-				for (int i = arr.size() - 1; i >= 0; i--) {
-					System.out.printf("(%d) 제목 |%s\n",arr.get(i).num,arr.get(i).title);
-				}
-			}
-			else if(command.startsWith("article delete ")) {	 // 게시물 삭제
-				String[] s = command.split(" ");
-				int remove = Integer.parseInt(s[2]);
-				int fi = 0;
-				boolean found = false;
-				for(int i = 0; i < arr.size(); i++) {
-					if(arr.get(i).num == remove) {
-						found = true;
-						fi = i;
-						break;
-					}
-				}
-				if(found == true) {
-					arr.remove(fi);
-					System.out.printf("%d 번 게시물이 삭제되었습니다.\n",remove);
-				}
-				else {
-					System.out.printf("%d번 게시물은 존재하지 않습니다.\n",remove);
-				}
-			}
-			else if(command.startsWith("article detail ")) { 	// 게시물 디테일
-				String[] s = command.split(" ");
-				int detail = Integer.parseInt(s[2]);
-				int fi = 0;
-				boolean found = false;
-				for(int i = 0; i < arr.size(); i++) {
-					if(arr.get(i).num == detail) {
-						found = true;
-						fi = i;
-						break;
-					}
-				}
-				if(found == true) {
-					System.out.printf("(%d) | %s\n",arr.get(fi).num, dateformat.format(arr.get(fi).date));
-					System.out.printf("제목 | %s\n",arr.get(fi).title);
-					System.out.printf("내용 | %s\n",arr.get(fi).text);
-				}
-				else {
-					System.out.printf("%d번 게시물은 존재하지 않습니다.\n",detail);
-				}
-			}
+			} 
 			else if(command.equals("help")) {					// 명령어 도움말
 				System.out.println("====================================");
 				System.out.println("article write = 게시글 작성하기");
@@ -93,6 +36,59 @@ public class Main {
 				System.out.println("ex, exit = 프로그램 종료");
 				System.out.println("====================================");
 				
+			}
+			else if (command.equals("article write")) {	// 게시물 작성
+				System.out.print("제목 : ");
+				title = sc.nextLine();
+				System.out.print("내용 : ");
+				text = sc.nextLine();
+				System.out.printf("%d번 게시물이 작성 되었습니다.\n", num);
+				게시판 저장 = new 게시판(num, title, text, date);
+				arr.add(저장);
+				num++;
+			} 
+			else if (command.equals("article list")) {	// 게시물 리스트 (번호, 제목)
+				if (arr.size() == 0) {
+					System.out.println("게시물이 없습니다.");
+				}
+				for (int i = arr.size() - 1; i >= 0; i--) {
+					System.out.printf("(%d) 제목 |%s\n",arr.get(i).num,arr.get(i).title);
+				}
+			}
+			else if(command.startsWith("article delete ")) {	 // 게시물 삭제
+				String[] s = command.split(" ");
+				int remove = Integer.parseInt(s[2]);
+				int fi = -1;
+				for(int i = 0; i < arr.size(); i++) {
+					if(arr.get(i).num == remove) {
+						fi = i;
+						break;
+					}
+				}
+				if(fi == -1) {
+					System.out.printf("%d번 게시물은 존재하지 않습니다.\n",remove);
+					continue;
+				}
+				arr.remove(fi);
+				System.out.printf("%d 번 게시물이 삭제되었습니다.\n",remove);
+			}
+			else if(command.startsWith("article detail ")) { 	// 게시물 디테일
+				String[] s = command.split(" ");
+				int detail = Integer.parseInt(s[2]);
+				int fi = -1;
+				for(int i = 0; i < arr.size(); i++) {
+					if(arr.get(i).num == detail) {
+						fi = i;
+						break;
+					}
+				}
+				if(fi == -1) {
+					System.out.printf("%d번 게시물은 존재하지 않습니다.\n",detail);
+					continue;
+				}
+				System.out.printf("(%d) | %s\n",arr.get(fi).num, dateformat.format(arr.get(fi).date));
+				System.out.printf("제목 | %s\n",arr.get(fi).title);
+				System.out.printf("내용 | %s\n",arr.get(fi).text);
 			}
 			else if (command.equals("article number sort")) {	// 게시글 번호 정렬(빈 번호 채우기)
 				if(arr.size()==0) {
