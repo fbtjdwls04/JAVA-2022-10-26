@@ -1,4 +1,4 @@
-package com.kor.java.proj;
+package com.kor.java.proj.util;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
