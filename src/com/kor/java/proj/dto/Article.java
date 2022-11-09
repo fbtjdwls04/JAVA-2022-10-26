@@ -12,4 +12,7 @@ public class Article extends Dto {
 		this.date = date;
 		this.hit = 0;
 	}
+	public void hitUp() {
+		hit++;
+	}
 }

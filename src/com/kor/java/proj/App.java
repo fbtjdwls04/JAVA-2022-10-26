@@ -13,7 +13,10 @@ public class App {
 		MemberController mc = new MemberController(sc);
 		ArticleController ac = new ArticleController(sc);
 		
+		
 		mc.admin();
+		ac.TestArticle();
+		
 		System.out.println("======== 프로그램 시작 ========");
 		
 		while (true) {
@@ -34,7 +37,6 @@ public class App {
 				continue;
 			}
 			
-			
 			if(commandSplit[0].equals("article")) {
 				ct = ac;
 			}else if(commandSplit[0].equals("member")) {
@@ -42,6 +44,27 @@ public class App {
 			}
 			else {
 				System.out.printf("%s(은)는 존재하지 않는 명령어 입니다.\n", command);
+				continue;
+			}
+
+			String logCommand = commandSplit[0] + " " + commandSplit[1];
+			switch(logCommand) {
+			case "article write":
+			case "article delete":
+			case "article modify":
+			case "member logout":
+				if(ct.logStatus == false) {
+					System.out.println("로그인이 필요합니다.");
+					continue;
+				}
+			}
+			switch(logCommand) {
+			case "member login":
+			case "member join":
+				if(ct.logStatus) {
+					System.out.println("로그아웃 후에 이용해주세요.");
+					continue;
+				}
 			}
 			
 			ct.doAction(command, commandSplit[1]);
