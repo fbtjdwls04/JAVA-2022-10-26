@@ -1,5 +1,7 @@
 package com.kor.java.proj.service;
 
+import java.util.List;
+
 import com.kor.java.proj.container.Container;
 import com.kor.java.proj.dao.ArticleDao;
 import com.kor.java.proj.dto.Article;
@@ -26,5 +28,8 @@ public class ArticleService {
 	}
 	public void remove(int fi) {
 		articleDao.remove(fi);
+	}
+	public List<Article> getList() {
+		return articleDao.getList();
 	}
 }

@@ -38,4 +38,8 @@ public class ArticleDao extends Dao {
 	public void remove(int fi) {
 		articles.remove(fi);
 	}
+
+	public List<Article> getList() {
+		return articles;
+	}
 }

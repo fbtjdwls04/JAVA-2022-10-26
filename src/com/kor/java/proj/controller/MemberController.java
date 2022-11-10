@@ -10,8 +10,8 @@ import com.kor.java.proj.util.Util;
 public class MemberController extends Controller {
 	private Scanner sc;
 	private MemberService memberService;
-	String command;
-	String command2;
+	private String command;
+	private String command2;
 
 	public MemberController(Scanner sc) {
 		this.sc = sc;

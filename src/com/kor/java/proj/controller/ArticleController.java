@@ -12,8 +12,8 @@ public class ArticleController extends Controller {
 	private ArticleService articleService;
 	private MemberService memberService;
 	private Scanner sc;
-	String command;
-	String command2;
+	private String command;
+	private String command2;
 
 	public ArticleController(Scanner sc) {
 		this.sc = sc;

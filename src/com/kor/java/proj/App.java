@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.kor.java.proj.controller.ArticleController;
 import com.kor.java.proj.controller.Controller;
+import com.kor.java.proj.controller.ExportController;
 import com.kor.java.proj.controller.MemberController;
 
 public class App {
@@ -12,7 +13,7 @@ public class App {
 		Scanner sc = new Scanner(System.in);
 		MemberController mc = new MemberController(sc);
 		ArticleController ac = new ArticleController(sc);
-		
+		ExportController ec = new ExportController(sc);
 		
 		mc.admin();
 		ac.TestArticle();
@@ -41,6 +42,8 @@ public class App {
 				ct = ac;
 			}else if(commandSplit[0].equals("member")) {
 				ct = mc;
+			}else if(commandSplit[0].equals("export")) {
+				ct = ec;
 			}
 			else {
 				System.out.printf("%s(은)는 존재하지 않는 명령어 입니다.\n", command);
